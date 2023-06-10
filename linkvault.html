@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LinkVault</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Wormhole</title>
 	<style>
-		/* CSS code goes here */
 		* {
 			margin: 0;
 			padding: 0;
@@ -96,10 +94,50 @@
 			display: none;
 		}
 	</style>
+	<script>
+		const urlInput = document.getElementById('url-input');
+		const encryptBtn = document.getElementById('encrypt-btn');
+		const encryptedUrl = document.getElementById('encrypted-url');
+		const decryptBtn = document.getElementById('decrypt-btn');
+		const decryptForm = document.getElementById('decrypt-form');
+		const encryptedInput = document.getElementById('encrypted-input');
+		const errorDialog = document.querySelector('.error-dialog');
+
+		// Encrypt URL
+		encryptBtn.addEventListener('click', () => {
+			const url = urlInput.value.trim();
+			if (url) {
+				const encrypted = btoa(url);
+				encryptedUrl.textContent = encrypted;
+				encryptedUrl.parentElement.style.display = 'block';
+			}
+		});
+
+		// Decrypt & Open URL
+		decryptBtn.addEventListener('click', () => {
+			const encrypted = encryptedInput.value.trim();
+			if (encrypted) {
+				try {
+					const url = atob(encrypted);
+					window.location.href = url;
+				} catch (error) {
+					errorDialog.style.display = 'block';
+				}
+			}
+		});
+
+		// Check for URL parameter
+		const urlParams = new URLSearchParams(window.location.search);
+		const encryptedData = urlParams.get('data');
+		if (encryptedData) {
+			encryptedInput.value = encryptedData;
+			decryptForm.style.display = 'block';
+		}
+	</script>
 </head>
 <body>
 	<div class="container">
-		<h1>LinkVault</h1>
+		<h1>Wormhole</h1>
 		<div class="form-container">
 			<label for="url-input">Enter URL:</label>
 			<input type="text" id="url-input">
@@ -113,12 +151,11 @@
 			<input type="text" id="encrypted-input">
 			<button id="decrypt-btn">Decrypt &amp; Open URL</button>
 		</div>
-	</div>
-	<div class="error-dialog">
-		<p>An error occurred while decrypting the URL.</p>
+		<div class="error-dialog">
+			<p>Invalid encrypted code.</p>
+		</div>
 	</div>
 	<script>
-		// JavaScript code goes here
 		const urlInput = document.getElementById('url-input');
 		const encryptBtn = document.getElementById('encrypt-btn');
 		const encryptedUrl = document.getElementById('encrypted-url');
