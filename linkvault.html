@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LinkVault</title>
+	<style>
+		body {
+			background-color: #171a21;
+			color: #fff;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			margin: 0;
+			padding: 0;
+		}
+		h1 {
+			font-size: 36px;
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 30px;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+		input[type="text"] {
+			padding: 10px;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			border: none;
+			background-color: #1b1e24;
+			color: #fff;
+			font-size: 16px;
+			width: 400px;
+			max-width: 100%;
+		}
+		button {
+			padding: 10px;
+			background-color: #2c2f3a;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.2s ease-in-out;
+			width: 400px;
+			max-width: 100%;
+		}
+		button:hover {
+			background-color: #3d4150;
+		}
+		.alert {
+			background-color: #2c2f3a;
+			color: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 50px;
+			display: none;
+			width: 400px;
+			max-width: 100%;
+		}
+		.alert p {
+			margin: 0;
+			font-size: 16px;
+		}
+		.alert.show {
+			display: block;
+		}
+		.error {
+			background-color: #ff4c4c;
+			color: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 50px;
+			display: none;
+			width: 400px;
+			max-width: 100%;
+		}
+		.error p {
+			margin: 0;
+			font-size: 16px;
+		}
+		.error.show {
+			display: block;
+		}
+		.form-decrypt {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+		}
+		.form-decrypt input[type="text"] {
+			padding: 10px;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			border: none;
+			background-color: #1b1e24;
+			color: #fff;
+			font-size: 16px;
+			width: 400px;
+			max-width: 100%;
+		}
+		.form-decrypt button {
+			padding: 10px;
+			background-color: #2c2f3a;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.2s ease-in-out;
+			width: 400px;
+			max-width: 100%;
+		}
+		.form-decrypt button:hover {
+			background-color: #3d4150;
+		}
+		.form-decrypt.show {
+			display: flex;
+		}
+		.form-decrypt label {
+			margin-top: 20px;
+		}
+		.form-decrypt input[type="text"] {
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>LinkVault</h1>
+	<form>
+		<label for="url">Enter URL:</label>
+		<input type="text" id="url" name="url" placeholder="https://example.com">
+		<button type="button" id="encrypt-btn">Encrypt URL</button>
+	</form>
+	<div class="alert" id="alert">
+		<p></p>
+	</div>
+	<div class="error" id="error">
+		<p></p>
+	</div>
+	<form class="form-decrypt" id="form-decrypt">
+		<label for="encrypted-code">Enter encrypted code:</label>
+		<input type="text" id="encrypted-code" name="encrypted-code">
+		<button type="button" id="decrypt-btn">Decrypt &amp; Open URL</button>
+	</form>
+	<script>
+		const encryptBtn = document.getElementById('encrypt-btn');
+		const decryptBtn = document.getElementById('decrypt-btn');
+		const alertBox = document.getElementById('alert');
+		const errorBox = document.getElementById('error');
+		const formDecrypt = document.getElementById('form-decrypt');
+
+		encryptBtn.addEventListener('click', () => {
+			const urlInput = document.getElementById('url');
+			const url = urlInput.value.trim();
+			if (url === '') {
+				showError('Please enter a URL');
+				return;
+			}
+			const encryptedCode = btoa(url);
+			showAlert(`Encrypted code: ${encryptedCode}`);
+		});
+
+		decryptBtn.addEventListener('click', () => {
+			const encryptedCodeInput = document.getElementById('encrypted-code');
+			const encryptedCode = encryptedCodeInput.value.trim();
+			if (encryptedCode === '') {
+				showError('Please enter an encrypted code');
+				return;
+			}
+			try {
+				const url = atob(encryptedCode);
+				window.location.href = url;
+			} catch (error) {
+				showError('Invalid encrypted code');
+			}
+		});
+
+		function showAlert(message) {
+			alertBox.querySelector('p').textContent = message;
+			alertBox.classList.add('show');
+			errorBox.classList.remove('show');
+			formDecrypt.classList.add('show');
+		}
+
+		function showError(message) {
+			errorBox.querySelector('p').textContent = message;
+			errorBox.classList.add('show');
+			alertBox.classList.remove('show');
+			formDecrypt.classList.remove('show');
+		}
+
+		formDecrypt.classList.add('show');
+	</script>
+</body>
+</html>
