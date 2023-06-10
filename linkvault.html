@@ -2,196 +2,161 @@
 <html>
 <head>
 	<title>LinkVault</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
+		/* CSS code goes here */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
 		body {
 			background-color: #171a21;
 			color: #fff;
 			font-family: Arial, sans-serif;
-			font-size: 16px;
-			margin: 0;
-			padding: 0;
 		}
-		h1 {
-			font-size: 36px;
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 50px;
 			text-align: center;
-			margin-top: 50px;
+		}
+
+		h1 {
+			font-size: 48px;
+			margin-bottom: 50px;
+		}
+
+		.form-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 			margin-bottom: 30px;
 		}
-		form {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin-top: 50px;
-		}
-		input[type="text"] {
-			padding: 10px;
-			margin-bottom: 20px;
-			border-radius: 5px;
-			border: none;
-			background-color: #1b1e24;
-			color: #fff;
-			font-size: 16px;
-			width: 400px;
-			max-width: 100%;
-		}
-		button {
-			padding: 10px;
-			background-color: #2c2f3a;
-			color: #fff;
-			border: none;
-			border-radius: 5px;
-			font-size: 16px;
-			cursor: pointer;
-			transition: background-color 0.2s ease-in-out;
-			width: 400px;
-			max-width: 100%;
-		}
-		button:hover {
-			background-color: #3d4150;
-		}
-		.alert {
-			background-color: #2c2f3a;
-			color: #fff;
-			padding: 20px;
-			border-radius: 5px;
-			margin-top: 50px;
-			display: none;
-			width: 400px;
-			max-width: 100%;
-		}
-		.alert p {
-			margin: 0;
-			font-size: 16px;
-		}
-		.alert.show {
-			display: block;
-		}
-		.error {
-			background-color: #ff4c4c;
-			color: #fff;
-			padding: 20px;
-			border-radius: 5px;
-			margin-top: 50px;
-			display: none;
-			width: 400px;
-			max-width: 100%;
-		}
-		.error p {
-			margin: 0;
-			font-size: 16px;
-		}
-		.error.show {
-			display: block;
-		}
-		.form-decrypt {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin-top: 50px;
-		}
-		.form-decrypt input[type="text"] {
-			padding: 10px;
-			margin-bottom: 20px;
-			border-radius: 5px;
-			border: none;
-			background-color: #1b1e24;
-			color: #fff;
-			font-size: 16px;
-			width: 400px;
-			max-width: 100%;
-		}
-		.form-decrypt button {
-			padding: 10px;
-			background-color: #2c2f3a;
-			color: #fff;
-			border: none;
-			border-radius: 5px;
-			font-size: 16px;
-			cursor: pointer;
-			transition: background-color 0.2s ease-in-out;
-			width: 400px;
-			max-width: 100%;
-		}
-		.form-decrypt button:hover {
-			background-color: #3d4150;
-		}
-		.form-decrypt.show {
-			display: flex;
-		}
-		.form-decrypt label {
-			margin-top: 20px;
-		}
-		.form-decrypt input[type="text"] {
+
+		.form-container label {
+			font-size: 24px;
 			margin-bottom: 10px;
+		}
+
+		.form-container input[type="text"] {
+			padding: 10px;
+			font-size: 18px;
+			border-radius: 5px;
+			border: none;
+			margin-bottom: 20px;
+			width: 100%;
+			max-width: 500px;
+		}
+
+		.form-container button {
+			background-color: #1b2838;
+			color: #fff;
+			padding: 10px 20px;
+			font-size: 18px;
+			border-radius: 5px;
+			border: none;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.form-container button:hover {
+			background-color: #2c3e50;
+		}
+
+		.alert-container {
+			display: none;
+			margin-bottom: 30px;
+		}
+
+		.alert-container p {
+			font-size: 24px;
+			padding: 10px;
+			background-color: #2ecc71;
+			border-radius: 5px;
+			display: inline-block;
+		}
+
+		.error-dialog {
+			display: none;
+			background-color: #c0392b;
+			color: #fff;
+			padding: 10px;
+			border-radius: 5px;
+			margin-bottom: 30px;
+		}
+
+		.error-dialog p {
+			font-size: 24px;
+		}
+
+		#decrypt-form {
+			display: none;
 		}
 	</style>
 </head>
 <body>
-	<h1>LinkVault</h1>
-	<form>
-		<label for="url">Enter URL:</label>
-		<input type="text" id="url" name="url" placeholder="https://example.com">
-		<button type="button" id="encrypt-btn">Encrypt URL</button>
-	</form>
-	<div class="alert" id="alert">
-		<p></p>
+	<div class="container">
+		<h1>LinkVault</h1>
+		<div class="form-container">
+			<label for="url-input">Enter URL:</label>
+			<input type="text" id="url-input">
+			<button id="encrypt-btn">Encrypt URL</button>
+		</div>
+		<div class="alert-container">
+			<p id="encrypted-url"></p>
+		</div>
+		<div class="form-container">
+			<label for="encrypted-input">Enter encrypted code:</label>
+			<input type="text" id="encrypted-input">
+			<button id="decrypt-btn">Decrypt &amp; Open URL</button>
+		</div>
 	</div>
-	<div class="error" id="error">
-		<p></p>
+	<div class="error-dialog">
+		<p>An error occurred while decrypting the URL.</p>
 	</div>
-	<form class="form-decrypt" id="form-decrypt">
-		<label for="encrypted-code">Enter encrypted code:</label>
-		<input type="text" id="encrypted-code" name="encrypted-code">
-		<button type="button" id="decrypt-btn">Decrypt &amp; Open URL</button>
-	</form>
 	<script>
+		// JavaScript code goes here
+		const urlInput = document.getElementById('url-input');
 		const encryptBtn = document.getElementById('encrypt-btn');
+		const encryptedUrl = document.getElementById('encrypted-url');
 		const decryptBtn = document.getElementById('decrypt-btn');
-		const alertBox = document.getElementById('alert');
-		const errorBox = document.getElementById('error');
-		const formDecrypt = document.getElementById('form-decrypt');
+		const decryptForm = document.getElementById('decrypt-form');
+		const encryptedInput = document.getElementById('encrypted-input');
+		const errorDialog = document.querySelector('.error-dialog');
 
+		// Encrypt URL
 		encryptBtn.addEventListener('click', () => {
-			const urlInput = document.getElementById('url');
 			const url = urlInput.value.trim();
-			if (url === '') {
-				showError('Please enter a URL');
-				return;
+			if (url) {
+				const encrypted = btoa(url);
+				encryptedUrl.textContent = encrypted;
+				encryptedUrl.parentElement.style.display = 'block';
 			}
-			const encryptedCode = btoa(url);
-			showAlert(`Encrypted code: ${encryptedCode}`);
 		});
 
+		// Decrypt & Open URL
 		decryptBtn.addEventListener('click', () => {
-			const encryptedCodeInput = document.getElementById('encrypted-code');
-			const encryptedCode = encryptedCodeInput.value.trim();
-			if (encryptedCode === '') {
-				showError('Please enter an encrypted code');
-				return;
-			}
-			try {
-				const url = atob(encryptedCode);
-				window.location.href = url;
-			} catch (error) {
-				showError('Invalid encrypted code');
+			const encrypted = encryptedInput.value.trim();
+			if (encrypted) {
+				try {
+					const url = atob(encrypted);
+					window.location.href = url;
+				} catch (error) {
+					errorDialog.style.display = 'block';
+				}
 			}
 		});
 
-		function showAlert(message) {
-			alertBox.querySelector('p').textContent = message;
-			alertBox.classList.add('show');
-			errorBox.classList.remove('show');
-			formDecrypt.classList.add('show');
+		// Check for URL parameter
+		const urlParams = new URLSearchParams(window.location.search);
+		const encryptedData = urlParams.get('data');
+		if (encryptedData) {
+			encryptedInput.value = encryptedData;
+			decryptForm.style.display = 'block';
 		}
-
-		function showError(message) {
-			errorBox.querySelector('p').textContent = message;
-			errorBox.classList.add('show');
-			alertBox.classList.remove('show');
-			formDecrypt.classList.remove('show');
-		}
-
-		formDecrypt.classList.add('show');
 	</script>
 </body>
 </html>
