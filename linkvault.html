@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LinkVault Discontinued</title>
-	<style>
-		body {
-			background-color: #f2f2f2;
-			font-family: Arial, sans-serif;
-			font-size: 16px;
-			line-height: 1.5;
-			color: #333;
-			margin: 0;
-			padding: 0;
-		}
-		.container {
-			max-width: 800px;
-			margin: 0 auto;
-			padding: 50px;
-			text-align: center;
-		}
-		h1 {
-			font-size: 36px;
-			margin-bottom: 20px;
-		}
-		p {
-			margin-bottom: 20px;
-		}
-		button {
-			background-color: #333;
-			color: #fff;
-			border: none;
-			padding: 10px 20px;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-		}
-		button:hover {
-			background-color: #666;
-		}
-	</style>
+	<title>LinkVault</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
-		<h1>LinkVault Discontinued</h1>
-		<p>Sorry but the code has become unstable and we are unable to continue supporting the website. We apologize for any inconvenience this may cause and we thank you for your support over the 30 seconds we've been online for.</p>
-		<button onclick="window.history.back()">Go Back</button>
+		<div class="row">
+			<div class="col s12">
+				<h3>LinkVault</h3>
+				<div class="input-field">
+					<input id="url" type="text" class="validate">
+					<label for="url">Enter URL</label>
+				</div>
+				<a class="waves-effect waves-light btn" onclick="openUrl()">Open</a>
+				<a class="waves-effect waves-light btn" onclick="shareUrl()">Share URL</a>
+			</div>
+		</div>
 	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script>
+		function openUrl() {
+			var url = document.getElementById('url').value;
+			if (url) {
+				window.location.href = url;
+			}
+		}
+
+		function shareUrl() {
+			var url = document.getElementById('url').value;
+			if (url) {
+				var shareUrl = window.location.href + '?url=' + encodeURIComponent(url);
+				window.prompt('Copy the URL below:', shareUrl);
+			}
+		}
+
+		// Detect URL parameter and open it securely
+		var urlParams = new URLSearchParams(window.location.search);
+		var url = urlParams.get('url');
+		if (url) {
+			window.location.href = url;
+		}
+	</script>
 </body>
 </html>
+
