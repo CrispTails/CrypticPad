@@ -1,48 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LinkVault</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Discontinued</title>
+    <style>
+        body {
+            background-color: #eef1f5;
+            font-family: sans-serif;
+        }
+        .not-found {
+            margin: auto;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            font-size: 60px;
+            font-weight: normal;
+        }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col s12">
-				<h3>LinkVault</h3>
-				<div class="input-field">
-					<input id="url" type="text" class="validate">
-					<label for="url">Enter URL</label>
-				</div>
-				<a class="waves-effect waves-light btn" onclick="openUrl()">Open</a>
-				<a class="waves-effect waves-light btn" onclick="shareUrl()">Share URL</a>
-			</div>
-		</div>
-	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script>
-		function openUrl() {
-			var url = document.getElementById('url').value;
-			if (url) {
-				window.location.href = 'https://crisptails.github.io/CrypticPad/linkvault?url=' + encodeURIComponent(url);
-			}
-		}
-
-		function shareUrl() {
-			var url = document.getElementById('url').value;
-			if (url) {
-				var shareUrl = window.location.href + '?url=' + encodeURIComponent(url);
-				window.prompt('Copy the URL below:', shareUrl);
-			}
-		}
-
-		// Detect URL parameter and open it securely
-		var urlParams = new URLSearchParams(window.location.search);
-		var url = urlParams.get('url');
-		if (url) {
-			window.location.href = url;
-		}
-	</script>
+    <div class="not-found">
+        <h1>LinkVault has been discontinued.</h1>
+        <p>The page you're looking has been discontinued and is out of service.</p>
+    </div>
+    <script>
+    	// Custom code here
+    </script>
 </body>
 </html>
